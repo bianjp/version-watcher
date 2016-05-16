@@ -11,7 +11,7 @@ def send_email(package, version):
       data = {
         'from': config['notify']['from'],
         'to': config['notify']['to'],
-        'subject': 'Subject: %s has new version %s out' % (package, version),
+        'subject': '%s has new version %s out' % (package, version),
         'text': 'Hi, %s has new version %s out!' % (package, version),
       }
     )

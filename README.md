@@ -1,6 +1,6 @@
 # Version Watcher
 
-Watch new version for something and notify by email when new version detected.
+Watch new version of something and notify by email when new version detected.
 
 Written in Python 3.
 
@@ -29,9 +29,11 @@ Since some email service providers (such as Gmail) requires SSL to send email to
 
 ## Setup
 
-Create your `config/settings.ini`.
+Create `config/settings.ini`, and change `config/nvchecker.ini` as needed.
 
-## Crontab
+Run `python3 main.py` to check at once.
+
+Add the following to `crontab` to check regularly:
 
 ```
 # Minute Hour Day Month Day_of_week Command
