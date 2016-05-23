@@ -37,5 +37,5 @@ Add the following to `crontab` to check regularly:
 
 ```
 # Minute Hour Day Month Day_of_week Command
-    0     *    *    *        *      cd /path/to/version-watcher && ./main.py &> log/cron.log
+    0     *    *    *        *      cd /path/to/version-watcher && ./main.py &>> log/cron.log
 ```
