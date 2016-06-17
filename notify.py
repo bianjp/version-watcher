@@ -2,7 +2,7 @@ import requests
 from config import config
 import logger
 
-def send_email(package, version):
+def send_email(package, version, old_version):
   try:
     r = requests.post(
       config['maligun']['api_base_url'] + '/messages',
@@ -12,7 +12,7 @@ def send_email(package, version):
         'from': config['notify']['from'],
         'to': config['notify']['to'],
         'subject': '%s has new version %s out' % (package, version),
-        'text': 'Hi, %s has new version %s out!' % (package, version),
+        'text': 'Hi, %s has new version %s out! The previous was %s.' % (package, version, old_version),
       }
     )
 

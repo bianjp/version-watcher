@@ -11,7 +11,7 @@ from nvchecker import tools
 class Source(core.Source):
   def on_update(self, name, version, old_version):
     for i in range(3):
-      if notify.send_email(name, version):
+      if notify.send_email(name, version, old_version):
         # on update old version if notify success
         oldvers = core.read_verfile(self.oldver)
         oldvers[name] = version
