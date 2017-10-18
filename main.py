@@ -1,12 +1,10 @@
 #!/usr/bin/env python3
 import notify
 import logger
-import sys
 import os
 import time
-from tornado.ioloop import IOLoop
+import asyncio
 from nvchecker import core
-from nvchecker import tools
 
 class Source(core.Source):
   def on_update(self, name, version, old_version):
@@ -20,20 +18,18 @@ class Source(core.Source):
       else:
         time.sleep(3)
 
-  def on_finish(self):
-    IOLoop.instance().stop()
-
 def main():
   try:
     s = Source(open('config/nvchecker.ini', 'r'))
     if not os.access(s.oldver, os.W_OK):
       open(s.oldver, 'w').close()
-    ioloop = IOLoop.instance()
-    ioloop.add_callback(s.check)
-    ioloop.start()
+    ioloop = asyncio.get_event_loop()
+    ioloop.run_until_complete(s.check())
     logger.log('Check finished successfully.')
   except Exception as e:
     logger.log('Check failed.', e, 'error')
+    print(time.strftime('%Y-%m-%d %H:%M:%S %z'))
+    raise
 
 if __name__ == '__main__':
   main()
