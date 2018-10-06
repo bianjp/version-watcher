@@ -5,6 +5,16 @@ import os
 import time
 import asyncio
 from nvchecker import core
+import logging
+import structlog
+
+# Disable nvchecker debug logging
+def logger_factory():
+  _logger = logging.getLogger()
+  _logger.setLevel(logging.WARNING)
+  return _logger
+
+structlog.configure(logger_factory=logger_factory)
 
 class Source(core.Source):
   def on_update(self, name, version, old_version):
