@@ -4,3 +4,4 @@ __pycache__
 /config/*.txt
 /config/settings.ini
 /log
+/venv
