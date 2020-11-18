@@ -5,3 +5,5 @@ __pycache__
 /config/settings.ini
 /log
 /venv
+
+/.idea

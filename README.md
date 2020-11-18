@@ -26,9 +26,10 @@ sudo easy_install-3.6 pip
 python3 -m venv venv
 source venv/bin/activate
 pip3 install -U pip
+pip3 install -U setuptools
 
 # Install pip dependencies
-pip3 install nvchecker requests tornado
+pip3 install -r requirements.txt
 ```
 
 ## Why not use postfix for sending email?
