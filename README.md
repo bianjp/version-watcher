@@ -6,27 +6,24 @@ Written in Python 3.
 
 ## Requirement
 
-* Python 3.5+
+* Python 3.7+
 * Python packages:
     * [nvchecker](https://github.com/lilydjwg/nvchecker)
-    * [tornado](https://pypi.org/project/tornado/) (required by nvchecker)
+    * [aiohttp](https://pypi.org/project/aiohttp/) (required by nvchecker)
     * [requests](https://github.com/kennethreitz/requests)
 * [Maligun](https://www.mailgun.com/) account for sending email
 * crontab
 
-Setup on CentOS 7:
+Setup on CentOS 8:
 
 ```bash
-# Install Python 3.6
-sudo yum install python36 python36-devel python36-setuptools
-# Unnecessary if using venv
-sudo easy_install-3.6 pip
+# Install Python 3.11
+sudo yum install python3.11 python3.11-pip
 
 # Use venv. Optional
-python3 -m venv venv
-source venv/bin/activate
+python3 -m venv .venv
+source .venv/bin/activate
 pip3 install -U pip
-pip3 install -U setuptools
 
 # Install pip dependencies
 pip3 install -r requirements.txt
@@ -48,5 +45,5 @@ Add the following to `crontab` to check regularly:
 # Minute Hour Day Month Day_of_week Command
     0     *    *    *        *      cd /path/to/version-watcher && ./main.py &>> log/cron.log
 # For venv:
-#    0     *    *    *        *      cd /path/to/version-watcher && source venv/bin/activate && ./main.py &>> log/cron.log
+#    0     *    *    *        *      cd /path/to/version-watcher && source .venv/bin/activate && ./main.py &>> log/cron.log
 ```

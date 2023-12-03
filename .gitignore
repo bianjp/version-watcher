@@ -2,8 +2,9 @@
 *.pyc
 __pycache__
 /config/*.txt
+/config/*.json
 /config/settings.ini
 /log
-/venv
+/.venv
 
 /.idea

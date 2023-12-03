@@ -1,0 +1,26 @@
+[__config__]
+oldver = "old_ver.json"
+newver = "new_ver.json"
+
+[best-trace]
+source = "regex"
+regex = "<h4>Linux</h4>\\s*<span>V([\\d.]+)"
+url = "https://www.ipip.net/download.html"
+encoding = "utf-8"
+
+[subgit]
+source = "regex"
+regex = "([\\d.]+) build #"
+url = "https://subgit.com/download"
+encoding = "utf-8"
+
+[oraclelinux-8]
+source = "regex"
+regex = "\"last_pushed\":\"([^\"]+)\""
+url = "https://hub.docker.com/v2/repositories/library/oraclelinux/tags/8/"
+encoding = "utf-8"
+
+[tomcat]
+source = "regex"
+regex = "<h3 id=\"([\\d.]+)\">[\\d.]+</h3>"
+url = "https://tomcat.apache.org/download-90.cgi"
