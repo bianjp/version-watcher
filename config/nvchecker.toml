@@ -15,12 +15,29 @@ url = "https://subgit.com/download"
 encoding = "utf-8"
 
 [oraclelinux-8]
-source = "regex"
-regex = "\"last_pushed\":\"([^\"]+)\""
-url = "https://hub.docker.com/v2/repositories/library/oraclelinux/tags/8/"
-encoding = "utf-8"
+source = "container"
+container = "library/oraclelinux:8"
+
+[nginx]
+source = "container"
+container = "library/nginx:1.26-alpine-slim"
 
 [tomcat]
 source = "regex"
 regex = "<h3 id=\"([\\d.]+)\">[\\d.]+</h3>"
 url = "https://tomcat.apache.org/download-90.cgi"
+
+[java-8]
+source = "regex"
+regex = "\"openjdk_version\":\\s*\"([^\"]+)\""
+url = "https://api.adoptium.net/v3/info/release_versions?architecture=x64&image_type=jdk&jvm_impl=hotspot&os=linux&page=0&page_size=1&release_type=ga&sort_method=DEFAULT&sort_order=DESC&version=%288%2C9%29"
+
+[java-17]
+source = "regex"
+regex = "\"openjdk_version\":\\s*\"([^\"]+)\""
+url = "https://api.adoptium.net/v3/info/release_versions?architecture=x64&image_type=jdk&jvm_impl=hotspot&os=linux&page=0&page_size=1&release_type=ga&sort_method=DEFAULT&sort_order=DESC&version=%2817%2C18%29"
+
+[java-21]
+source = "regex"
+regex = "\"openjdk_version\":\\s*\"([^\"]+)\""
+url = "https://api.adoptium.net/v3/info/release_versions?architecture=x64&image_type=jdk&jvm_impl=hotspot&os=linux&page=0&page_size=1&release_type=ga&sort_method=DEFAULT&sort_order=DESC&version=%2821%2C22%29"
