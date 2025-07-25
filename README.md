@@ -18,13 +18,13 @@ Written in Python 3.
 Setup on CentOS 8:
 
 ```bash
-# Install Python 3.11
-sudo yum install python3.11 python3.11-pip
+# Install Python 3.12
+sudo yum install python3.12
 
 # Install uv
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
-# Install pip dependencies
+# Install dependencies
 uv sync
 ```
 
