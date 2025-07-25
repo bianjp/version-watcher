@@ -6,5 +6,6 @@ __pycache__
 /config/settings.ini
 /log
 /.venv
+/.python-version
 
 /.idea

@@ -1,0 +1,20 @@
+[project]
+name = "version-watcher"
+version = "0.1.0"
+description = "Watch for new versions and notify by email"
+readme = "README.md"
+requires-python = ">=3.11"
+
+dependencies = [
+  "aiohttp~=3.12",
+  "nvchecker~=2.18",
+  "requests~=2.32",
+]
+
+[[tool.uv.index]]
+#url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+#url = "https://mirrors.ustc.edu.cn/pypi/simple"
+#url = "https://mirrors.aliyun.com/pypi/simple"
+#url = "https://mirrors.huaweicloud.com/repository/pypi/simple"
+url = "https://mirrors.cloud.tencent.com/pypi/simple"
+default = true

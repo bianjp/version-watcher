@@ -6,7 +6,8 @@ Written in Python 3.
 
 ## Requirement
 
-* Python 3.7+
+* Python 3.8+
+* [uv](https://docs.astral.sh/uv/)
 * Python packages:
     * [nvchecker](https://github.com/lilydjwg/nvchecker)
     * [aiohttp](https://pypi.org/project/aiohttp/) (required by nvchecker)
@@ -20,13 +21,11 @@ Setup on CentOS 8:
 # Install Python 3.11
 sudo yum install python3.11 python3.11-pip
 
-# Use venv. Optional
-python3 -m venv .venv
-source .venv/bin/activate
-pip3 install -U pip
+# Install uv
+curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # Install pip dependencies
-pip3 install -r requirements.txt
+uv sync
 ```
 
 ## Why not use postfix for sending email?
@@ -37,13 +36,11 @@ Since some email service providers (such as Gmail) requires SSL to send email to
 
 Create `config/settings.ini`, and change `config/nvchecker.ini` as needed.
 
-Run `python3 main.py` to check at once.
+Run `uv run main.py` to check at once.
 
 Add the following to `crontab` to check regularly:
 
 ```
 # Minute Hour Day Month Day_of_week Command
-    0     *    *    *        *      cd /path/to/version-watcher && ./main.py &>> log/cron.log
-# For venv:
-#    0     *    *    *        *      cd /path/to/version-watcher && source .venv/bin/activate && ./main.py &>> log/cron.log
+    0     *    *    *        *      cd /path/to/version-watcher && /path/to/uv run main.py &>> log/cron.log
 ```

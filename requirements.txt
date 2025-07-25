@@ -1,3 +1,0 @@
-nvchecker ~= 2.12
-requests ~= 2.31
-aiohttp ~= 3.9
