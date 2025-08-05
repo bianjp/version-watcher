@@ -21,6 +21,20 @@ def logger_factory():
 structlog.configure(logger_factory=logger_factory)
 
 
+def read_old_versions(file: str) -> Dict[str, str]:
+    # The first run
+    if not os.path.exists(file):
+        return {}
+    with open(file) as f:
+        return json.load(f)
+
+
+def read_new_versions(file: str) -> Dict[str, str]:
+    with open(file) as f:
+        data: Dict[str, Dict[str, str]] = json.load(f).get('data')
+        return dict([(k, v.get('version')) for k, v in data.items() if v and v.get('version')])
+
+
 def main():
     try:
         sys.argv.append('-c')
@@ -32,27 +46,25 @@ def main():
         if not os.path.exists(new_version_file):
             logger.log('nvchecker execute failed', level='error')
             return
-        # The first run
-        if not os.path.exists(old_version_file):
-            os.rename(new_version_file, old_version_file)
-            return
 
-        with open(old_version_file) as old_f, open(new_version_file) as new_f:
-            old_versions: Dict[str, str] = json.load(old_f)
-            new_versions: Dict[str, Dict[str, str]] = json.load(new_f).get('data')
-            for name in new_versions:
-                new_version = new_versions.get(name, {}).get('version')
-                if not new_version:
-                    continue
-                old_version = old_versions.get(name)
-                if not old_version:
+        old_versions = read_old_versions(old_version_file)
+        new_versions = read_new_versions(new_version_file)
+
+        need_update = False
+        for name in new_versions:
+            new_version = new_versions.get(name)
+            old_version = old_versions.get(name)
+            if not old_version:
+                old_versions[name] = new_version
+                need_update = True
+            elif new_version != old_version:
+                # Only update old version if notify success
+                if notify.send_email(name, new_version, old_version):
                     old_versions[name] = new_version
-                elif new_version != old_version:
-                    # Only update old version if notify success
-                    if notify.send_email(name, new_version, old_version):
-                        old_versions[name] = new_version
-        with open(old_version_file, 'w') as f:
-            json.dump(old_versions, f, ensure_ascii=False, indent=2)
+                    need_update = True
+        if need_update:
+            with open(old_version_file, 'w') as f:
+                json.dump(old_versions, f, ensure_ascii=False, indent=2)
         logger.log('Check finished successfully.')
     except Exception as e:
         logger.log('Check failed.', e, 'error')
