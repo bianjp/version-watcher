@@ -39,9 +39,11 @@ def main():
 
         with open(old_version_file) as old_f, open(new_version_file) as new_f:
             old_versions: Dict[str, str] = json.load(old_f)
-            new_versions: Dict[str, str] = json.load(new_f)
+            new_versions: Dict[str, Dict[str, str]] = json.load(new_f).get('data')
             for name in new_versions:
-                new_version = new_versions.get(name)
+                new_version = new_versions.get(name, {}).get('version')
+                if not new_version:
+                    continue
                 old_version = old_versions.get(name)
                 if not old_version:
                     old_versions[name] = new_version
